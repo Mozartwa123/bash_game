@@ -1,0 +1,21 @@
+
+
+.terminal {
+    display: flex;
+    align-items: left;
+    border: 1px solid black;
+    flex-direction: column;
+}
+
+.line {
+    display: flex;
+}
+
+.prompt-input {
+    min-width: 5ch;
+    min-height: 1em;
+    border: none;
+    display: inline-block;
+    outline: none;
+    caret-color: black;
+}

@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="/terminal/prompt.css">
+<style>
+    <%- testPrompt.genStyle() %>
+</style>
+
+<div id="prompt-template" style="display:none">
+    <%- testPrompt.genPrompt() %>
+</div>
+
+<div id="<%= testPrompt.htmlTerminalId %>" class="terminal">
+<div class="output" id=${htmlOutputId}></div>
+</div> 
+
+<script>
+    let terminal;
+    let activeInput;
+    let output;
+    window.addEventListener("DOMContentLoaded", () => {
+            terminal = document.getElementById("<%= testPrompt.htmlTerminalId %>");
+            newLine();
+            activeInput = terminal.querySelector(".prompt-input");
+            activeInput.focus();
+            activeInput.addEventListener("keydown", enterEvent);
+    });
+
+    function newOutput(content){
+        output = document.createElement("div");
+        output.innerHTML = content;
+        output.classList.add("output");
+        terminal.appendChild(output);
+    }
+
+    function newLine(){
+        const commandline = document.createElement("div");
+        const template = document.getElementById("prompt-template");
+        commandline.classList.add("line");
+        commandline.innerHTML = template.innerHTML;
+        terminal.appendChild(commandline);
+        activeInput = commandline.querySelector(".prompt-input");
+        activeInput.focus();
+        activeInput.addEventListener("keydown", enterEvent);
+    }
+
+    function enterEvent(e){
+        if(e.key === "Enter"){
+            e.preventDefault();
+            console.log(activeInput.textContent.trim());
+            newOutput(`execution of command ${activeInput.textContent.trim()}`);
+            blockLine();
+            newLine();
+        }
+    }
+
+    function blockLine(){
+        if(activeInput){
+            activeInput.contentEditable = false;
+        }
+    }
+
+    terminal.addEventListener("click", () => {
+            if (activeInput) {
+                activeInput.focus();
+            }
+        });
+</script>
