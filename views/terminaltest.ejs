@@ -11,7 +11,15 @@
 <div class="output" id=${htmlOutputId}></div>
 </div> 
 
+<script src="/terminal/terminal.js" type="module"></script>
 <script>
+window.addEventListener("DOMContentLoaded", () => {
+    Terminal.init("<%= testPrompt.htmlTerminalId %>");
+});
+</script>
+<!--
+<script>
+    
     let terminal;
     let activeInput;
     let output;
@@ -63,3 +71,5 @@
             }
         });
 </script>
+
+-->
